@@ -1,15 +1,21 @@
 version: "3.8"
 services:
-  # api:
-  #   container_name: api
-  #   build:
-  #     context: .
-  #   depends_on:
-  #     - psql
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - docks
+  api:
+    container_name: api
+    build:
+      context: .
+    environment:
+      - DB_HOST=psql
+      - POSTGRES_DB=docks
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_ROOT_PASSWORD=123
+    depends_on:
+      - psql
+    ports:
+      - 8080:8080
+    networks:
+      - api-network
   psql:
     hostname: "psql"
     image: postgres:latest
@@ -26,9 +32,8 @@ services:
     volumes:
       - db:/var/lib/psql/data
     networks:
-      - docks
+      - api-network
 volumes:
   db:
 networks:
-  docks:
-    driver: bridge
+  api-network:
