@@ -1,11 +1,15 @@
 package repository
 
-import "github.com/shopspring/decimal"
+import (
+	"github.com/joaopedsa/dock-challenge/domain/entity"
+	"github.com/joaopedsa/dock-challenge/domain/models"
+	"github.com/shopspring/decimal"
+)
 
 type BankAccountRepository interface {
-	create(userID int32, number, agency string)
-	delete(userID int32, number, agency string)
-	block(userID int32, number, agency string, value decimal.Decimal)
-	withdraw(userID int32, number, agency string, value decimal.Decimal)
-	deposit(userID int32, number, agency string, value decimal.Decimal)
+	Get(inputBankAccount entity.BankAccount) (models.BankAccount, error)
+	Create(inputBankAccount entity.BankAccount) error
+	Delete(inputBankAccount entity.BankAccount) error
+	UpdateBlock(inputBankAccount entity.BankAccount, newIsBlock bool) error
+	UpdateBalance(inputBankAccount entity.BankAccount, newBalance decimal.Decimal) error
 }

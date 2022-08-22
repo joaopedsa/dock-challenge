@@ -1,6 +1,12 @@
 package repository
 
+import (
+	"github.com/joaopedsa/dock-challenge/domain/entity"
+	"github.com/joaopedsa/dock-challenge/domain/models"
+)
+
 type UserRepository interface {
-	create(cpf, name string) error
-	delete(cpf string) error
+	Get(inputUser entity.User) (models.User, error)
+	Create(user entity.User) error
+	Delete(cpf string) error
 }
